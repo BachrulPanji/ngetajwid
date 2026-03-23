@@ -1,0 +1,155 @@
+/* Custom font for Arabic Text */
+.arabic-text {
+    font-family: 'Amiri', serif;
+    direction: rtl;
+    line-height: 2;
+}
+
+@media (max-width: 640px) {
+    .arabic-text {
+        font-size: 1.5rem !important;
+        line-height: 2.5;
+    }
+}
+
+/* Hover effects */
+.hover-scale {
+    transition: transform 0.2s ease-in-out;
+}
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+
+.floating {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.delay-100 {
+    animation-delay: 0.1s;
+}
+
+@keyframes modalPop {
+    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-modal-pop {
+    animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+/* Print Styles */
+@media print {
+    @page {
+        size: auto; /* Bisa adaptif ke A4 atau F4/Legal melalui dialog printer pengguna */
+        margin: 10mm; /* Margin 1cm di segala sisi */
+    }
+
+    body { 
+        background: white !important; 
+        color: black !important; 
+        font-size: 11pt !important;
+        -webkit-print-color-adjust: exact; 
+        print-color-adjust: exact;
+    }
+    
+    /* Sembunyikan semua elemen kecuali tabel Jadwal */
+    header, nav, .hide-on-print, .floating, #tab-alquran, #tab-doa, #tab-jadwal, #section-alquran, #section-doa { 
+        display: none !important; 
+    }
+    
+    #section-jadwal { 
+        display: block !important; 
+        border: none !important; 
+        padding: 0 !important; 
+        margin: 0 !important; 
+        box-shadow: none !important; 
+        top: 0 !important;
+        left: 0 !important;
+        position: absolute;
+        width: 100% !important;
+    }
+    
+    #print-area {
+        width: 100% !important;
+        margin: 0 auto;
+        padding: 0 !important;
+        box-shadow: none !important;
+        background: white !important;
+        page-break-after: auto;
+    }
+
+    .print-text-black { color: #000 !important; }
+    
+    .print-table { 
+        width: 100% !important; 
+        border-collapse: collapse !important; 
+        color: black !important; 
+        font-size: 10pt !important;
+        page-break-inside: auto;
+    }
+    
+    .print-table tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    .print-border { 
+        border: 1px solid #000 !important; 
+        color: black !important; 
+        padding: 6px !important;
+    }
+    
+    .print-bg-gray { 
+        background-color: #e5e7eb !important; 
+        color: black !important;
+        font-weight: bold !important;
+    }
+    
+    .print-bg-light { 
+        background-color: #f3f4f6 !important; 
+        color: black !important;
+    }
+}

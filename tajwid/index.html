@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muslim Daily</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        // SESSION CHECK (MUST BE FIRST)
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = '../index.html';
+        }
+    </script>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body
+    class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-purple-900 dark:to-indigo-900 dark:text-slate-200 min-h-screen font-['Poppins'] selection:bg-purple-300 selection:text-purple-900">
+
+    <!-- Decorative Blobs -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10 bg-opacity-50">
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-300/20 dark:bg-purple-900/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob">
+        </div>
+        <div
+            class="absolute top-[20%] right-[-10%] w-[35%] h-[35%] bg-indigo-300/20 dark:bg-indigo-900/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute bottom-[-10%] left-[20%] w-[30%] h-[30%] bg-pink-300/20 dark:bg-pink-900/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000">
+        </div>
+    </div>
+
+    <!-- Header Glassmorphism -->
+    <header
+        class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm border-b border-purple-100 dark:border-purple-900/50 sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div
+                        class="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl shadow-lg transform rotate-3 floating">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1
+                            class="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-indigo-600 dark:from-purple-300 dark:to-indigo-300 uppercase tracking-tighter">
+                            Muslim Daily</h1>
+                        <p
+                            class="text-xs font-bold text-slate-500 dark:text-slate-400 tracking-widest uppercase opacity-80">
+                            Yuk Tingkatan takwa kalian</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <div
+                        class="hidden md:flex px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-white font-black text-sm shadow-md border-b-4 border-orange-700 active:translate-y-1 active:border-b-0 transition-all cursor-default">
+                        TINGKAT 1
+                    </div>
+                    <div
+                        class="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <span class="text-amber-500">
+                            <svg class="w-4 h-4 sm:w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="font-bold text-slate-700 dark:text-slate-300 text-sm" id="header-score">150</span>
+                    </div>
+                    <button onclick="logout()" 
+                        class="w-10 h-10 flex items-center justify-center bg-red-50 dark:bg-red-900/20 text-red-500 rounded-xl border border-red-100 dark:border-red-900/30 hover:bg-red-500 hover:text-white transition-all shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="container mx-auto px-6 mt-8">
+        <div
+            class="flex flex-wrap gap-2 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-white/40 dark:border-slate-700 rounded-2xl p-2 shadow-sm">
+            <button onclick="showSection('hijaiyah')" id="tab-hijaiyah"
+                class="tab-btn flex-1 py-3 px-4 rounded-xl font-bold transition-all bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md transform hover:-translate-y-0.5">
+                Huruf Hijaiyah
+            </button>
+            <button onclick="showSection('tajwid')" id="tab-tajwid"
+                class="tab-btn flex-1 py-3 px-4 rounded-xl font-bold transition-all text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700">
+                Tajwid Warna
+            </button>
+            <button onclick="showSection('practice')" id="tab-practice"
+                class="tab-btn flex-1 py-3 px-4 rounded-xl font-bold transition-all text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700">
+                Latihan
+            </button>
+            <button onclick="showSection('games')" id="tab-games"
+                class="tab-btn flex-1 py-3 px-4 rounded-xl font-bold transition-all text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700">
+                Permainan
+            </button>
+            <button onclick="window.location.href='../Alquran/index.html'" id="tab-alquran"
+                class="tab-btn flex-1 py-3 px-4 rounded-xl font-bold transition-all text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 border border-purple-100 dark:border-purple-800/50">
+                Al-Qur'an
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 mt-8 pb-12">
+
+        <!-- Huruf Hijaiyah Section -->
+        <section id="section-hijaiyah" class="section-content fade-in-up">
+            <div
+                class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl shadow-xl p-6 md:p-10 mb-8 relative overflow-hidden">
+                <div
+                    class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-gradient-to-br from-purple-400 to-indigo-400 rounded-full opacity-10 pointer-events-none">
+                </div>
+
+                <div class="relative z-10">
+                    <h2
+                        class="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-indigo-600 dark:from-purple-300 dark:to-indigo-300 mb-2">
+                        Huruf Hijaiyah Interaktif</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mb-8 font-medium">Klik huruf untuk mendengar pelafalan
+                        dan melihat cara baca.</p>
+
+                    <div class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4" id="hijaiyah-container">
+                        <!-- Huruf Hijaiyah Cards -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Makhraj Guide -->
+            <div
+                class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl shadow-lg p-6 md:p-8">
+                <h3
+                    class="text-xl font-black text-slate-800 dark:text-white mb-6 uppercase tracking-wider flex items-center space-x-2">
+                    <span class="w-2 h-8 bg-indigo-500 rounded-full"></span>
+                    <span>Panduan Makhraj</span>
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div
+                        class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border-l-4 border-indigo-500 transition-all hover:shadow-md group">
+                        <h4
+                            class="font-black text-indigo-600 dark:text-indigo-400 mb-2 uppercase text-xs tracking-widest">
+                            Tenggorokan</h4>
+                        <p class="arabic-text text-2xl text-slate-800 dark:text-white leading-relaxed">ء ه ع ح غ خ</p>
+                    </div>
+                    <div
+                        class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border-l-4 border-purple-500 transition-all hover:shadow-md group">
+                        <h4
+                            class="font-black text-purple-600 dark:text-purple-400 mb-2 uppercase text-xs tracking-widest">
+                            Lidah</h4>
+                        <p class="arabic-text text-2xl text-slate-800 dark:text-white leading-relaxed">ق ك ج ش ي ض ل ن ر
+                        </p>
+                    </div>
+                    <div
+                        class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl border-l-4 border-pink-500 transition-all hover:shadow-md group">
+                        <h4 class="font-black text-pink-600 dark:text-pink-400 mb-2 uppercase text-xs tracking-widest">
+                            Bibir</h4>
+                        <p class="arabic-text text-2xl text-slate-800 dark:text-white leading-relaxed">ب م و ف</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tajwid Section -->
+        <section id="section-tajwid" class="section-content hidden fade-in-up">
+            <div
+                class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl shadow-xl p-6 md:p-10 mb-8 relative overflow-hidden">
+                <div
+                    class="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-gradient-to-tr from-teal-400 to-emerald-400 rounded-full opacity-10 pointer-events-none">
+                </div>
+
+                <div class="relative z-10">
+                    <h2
+                        class="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-emerald-500 dark:from-teal-300 dark:to-emerald-300 mb-8">
+                        Hukum Tajwid Lengkap</h2>
+
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-wrap gap-2 mb-10 pb-6 border-b border-slate-100 dark:border-slate-700">
+                        <button onclick="filterTajwid('all')"
+                            class="filter-btn bg-slate-800 dark:bg-slate-600 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-md transform hover:-translate-y-0.5 transition-all">Semua</button>
+                        <button onclick="filterTajwid('nun-tanwin')"
+                            class="filter-btn bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">Nun
+                            & Tanwin</button>
+                        <button onclick="filterTajwid('mim')"
+                            class="filter-btn bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">Mim
+                            Mati</button>
+                        <button onclick="filterTajwid('mad')"
+                            class="filter-btn bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">Mad</button>
+                        <button onclick="filterTajwid('qalqalah')"
+                            class="filter-btn bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-all">Qalqalah</button>
+                    </div>
+
+                    <!-- Tajwid Cards Container -->
+                    <div id="tajwid-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Cards will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Section -->
+        <section id="section-practice" class="section-content hidden fade-in-up">
+            <div
+                class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl shadow-xl p-6 md:p-10 mb-8">
+                <h2 class="text-3xl font-black text-slate-800 dark:text-white mb-8">Latihan Tajwid</h2>
+
+                <!-- Quiz Container -->
+                <div id="quiz-container" class="mb-10">
+                    <div
+                        class="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 p-8 rounded-3xl relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-8 relative z-10">
+                            <span
+                                class="px-4 py-1 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-black uppercase tracking-widest">
+                                Soal <span id="current-question">1</span> / <span id="total-questions">20</span>
+                            </span>
+                            <div
+                                class="bg-white dark:bg-slate-800 px-5 py-2 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                                <span
+                                    class="font-black text-slate-400 dark:text-slate-500 text-xs uppercase mr-2 tracking-widest">Skor</span>
+                                <span class="font-black text-indigo-600 dark:text-indigo-400 text-lg"
+                                    id="score">0</span>
+                            </div>
+                        </div>
+
+                        <div id="question-content"
+                            class="mb-10 text-xl md:text-2xl font-bold text-slate-800 dark:text-white leading-relaxed text-center">
+                            <!-- Question will be loaded here -->
+                        </div>
+
+                        <div id="answer-options" class="grid md:grid-cols-2 gap-4 mb-8">
+                            <!-- Answer options will be loaded here -->
+                        </div>
+
+                        <div
+                            class="flex justify-between items-center mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                            <button onclick="previousQuestion()" id="prev-btn"
+                                class="flex items-center space-x-2 text-slate-400 dark:text-slate-600 font-bold hover:text-indigo-500 transition-colors disabled:opacity-30 disabled:hover:text-slate-400"
+                                disabled>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                                <span>Sebelumnya</span>
+                            </button>
+                            <button onclick="nextQuestion()" id="next-btn"
+                                class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-2xl font-black shadow-lg shadow-indigo-200 dark:shadow-none transition-all transform hover:-translate-y-1 active:translate-y-0">
+                                <span>Selanjutnya</span>
+                                <svg class="w-5 h-5 inline-block ml-1" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div
+                        class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-900/40 p-6 rounded-2xl text-center">
+                        <div
+                            class="text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-1">
+                            Benar</div>
+                        <div class="text-3xl font-black text-emerald-700 dark:text-emerald-300" id="correct-count">0
+                        </div>
+                    </div>
+                    <div
+                        class="bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-900/40 p-6 rounded-2xl text-center">
+                        <div class="text-xs font-black text-rose-600 dark:text-rose-400 uppercase tracking-widest mb-1">
+                            Salah</div>
+                        <div class="text-3xl font-black text-rose-700 dark:text-rose-300" id="wrong-count">0</div>
+                    </div>
+                    <div
+                        class="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/40 p-6 rounded-2xl text-center">
+                        <div class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">
+                            Akurasi</div>
+                        <div class="text-3xl font-black text-blue-700 dark:text-blue-300" id="accuracy">100%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="section-games" class="section-content hidden fade-in-up">
+            <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <!-- Game 1: Tebak Hukum Tajwid -->
+                <div
+                    class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl shadow-xl p-8 transition-all hover:shadow-2xl">
+                    <h3 class="text-2xl font-black text-slate-800 dark:text-white mb-6 flex items-center">
+                        <span
+                            class="w-10 h-10 bg-amber-100 dark:bg-amber-900/40 text-amber-600 rounded-xl flex items-center justify-center mr-3">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM5.884 6.98a1 1 0 00-1.457-1.369l-.707.707a1 1 0 001.415 1.415l.707-.707zM4 11a1 1 0 100-2H3a1 1 0 100 2h1zM12.654 4.904a1 1 0 00-1.457 1.37l.707.707a1 1 0 001.415-1.415l-.707-.707zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zM12.654 15.096a1 1 0 001.457-1.37l-.707-.707a1 1 0 00-1.415 1.415l.707.707zM6.146 15.096a1 1 0 001.457 1.37l.707-.707a1 1 0 00-1.415-1.415l-.707.707z">
+                                </path>
+                            </svg>
+                        </span>
+                        Tebak Hukum
+                    </h3>
+                    <div id="game1-container"
+                        class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl mb-6 min-h-[160px] flex flex-col justify-center border border-slate-100 dark:border-slate-700">
+                        <div class="arabic-text text-3xl mb-6 text-center dark:text-white font-bold" id="game1-ayat">
+                        </div>
+                        <p
+                            class="text-center text-slate-400 dark:text-slate-500 font-black text-xs uppercase tracking-widest mb-4">
+                            Hukum tajwid apa ini?</p>
+                        <div id="game1-options" class="grid grid-cols-2 gap-3"></div>
+                    </div>
+                    <button onclick="newGame1Question()"
+                        class="w-full bg-slate-800 dark:bg-slate-700 text-white py-3 rounded-2xl font-black hover:bg-slate-950 dark:hover:bg-slate-600 transition-all shadow-lg active:scale-95">SOAL
+                        BARU</button>
+                </div>
+
+                <!-- Game 2: Susun Ayat -->
+                <div
+                    class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl shadow-xl p-8">
+                    <h3 class="text-2xl font-black text-slate-800 dark:text-white mb-6 flex items-center">
+                        <span
+                            class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 rounded-xl flex items-center justify-center mr-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16m-7 6h7"></path>
+                            </svg>
+                        </span>
+                        Susun Ayat
+                    </h3>
+                    <div
+                        class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl mb-6 border border-slate-100 dark:border-slate-700">
+                        <p
+                            class="text-center text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-6">
+                            Susun potongan ayat dengan urutan benar:</p>
+                        <div id="game2-target"
+                            class="arabic-text text-2xl mb-8 p-6 bg-white dark:bg-slate-800 rounded-2xl text-center min-h-[100px] border-2 border-dashed border-indigo-200 dark:border-slate-700 text-slate-800 dark:text-white flex items-center justify-center flex-wrap gap-2">
+                        </div>
+                        <div id="game2-pieces" class="flex flex-wrap gap-3 justify-center"></div>
+                    </div>
+                    <button onclick="newGame2Question()"
+                        class="w-full bg-indigo-600 text-white py-3 rounded-2xl font-black hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none active:scale-95">AYAT
+                        BARU</button>
+                </div>
+            </div>
+
+            <!-- Game 3: Memory Card -->
+            <div
+                class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl shadow-xl p-6 md:p-10 mb-8 overflow-hidden">
+                <h3 class="text-2xl font-black text-slate-800 dark:text-white mb-8">Memory Card - Pasangkan Huruf</h3>
+                <div
+                    class="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 p-8 rounded-3xl">
+                    <div id="memory-game" class="grid grid-cols-3 md:grid-cols-6 gap-4"></div>
+                    <div class="flex flex-col md:flex-row items-center justify-between mt-10 space-y-4 md:space-y-0">
+                        <div class="flex space-x-6">
+                            <div class="text-center">
+                                <div
+                                    class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                                    Langkah</div>
+                                <div class="text-2xl font-black text-slate-800 dark:text-white" id="memory-moves">0
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div
+                                    class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                                    Waktu</div>
+                                <div class="text-2xl font-black text-slate-800 dark:text-white" id="memory-time">00:00
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="startMemoryGame()"
+                            class="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-3 rounded-2xl font-black shadow-lg shadow-emerald-200 dark:shadow-none transition-all transform hover:-translate-y-1 active:scale-95">MULAI
+                            PERMAINAN</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Dark Mode Toggle -->
+    <div class="fixed bottom-8 right-8 z-50">
+        <button onclick="toggleDarkMode()"
+            class="group bg-slate-900 dark:bg-white text-white dark:text-slate-900 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all transform hover:scale-110 active:scale-90 border-4 border-white dark:border-slate-900">
+            <span id="theme-icon-svg">
+                <!-- Moon Icon (Default) -->
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                    </path>
+                </svg>
+            </span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer
+        class="py-12 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border-t border-slate-100 dark:border-slate-800 mt-auto">
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-black text-slate-400 dark:text-slate-600 uppercase tracking-[0.3em] text-[10px] mb-2">
+                Developed By</p>
+            <p class="font-black text-slate-800 dark:text-slate-200 tracking-tight text-lg">Creatid Bachrul Panji
+                Gumilang</p>
+            <div class="w-8 h-1 bg-gradient-to-r from-purple-500 to-indigo-600 mx-auto mt-4 rounded-full"></div>
+        </div>
+    </footer>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = '../index.html';
+        }
+
+        // SW Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('../sw.js')
+                    .then(reg => console.log('SW Registered'))
+                    .catch(err => console.log('SW Error: ', err));
+            });
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
