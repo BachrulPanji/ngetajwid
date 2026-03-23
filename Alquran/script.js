@@ -130,6 +130,12 @@ async function fetchDetailSurat(nomor) {
         currentSuratDetail = data.data || data;
         currentTafsirData = null; // Reset tafsir cache when opening new surat
 
+        // Update Modal Title
+        const titleElement = document.getElementById("detail-surat-title");
+        if (titleElement) {
+            titleElement.textContent = currentSuratDetail.namaLatin || currentSuratDetail.nama_latin || "Detail Surat";
+        }
+
         openSuratDetailModal();
         toggleTafsirMode(false); // Default menampilkan ayat
     } catch (error) {

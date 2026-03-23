@@ -1,4 +1,4 @@
-const CACHE_NAME = 'muslim-daily-v1';
+const CACHE_NAME = 'muslim-daily-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
